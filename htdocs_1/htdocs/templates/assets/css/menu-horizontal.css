@@ -1,0 +1,72 @@
+.container-nav-inicio{
+    width: 100%;
+    background: linear-gradient(180deg, rgba(144, 238, 144, 0.8), rgba(224, 255, 224, 0.9));
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 100px;
+    text-align: center;
+}
+.menu{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 10 0;
+    border-radius: 5px;
+}
+.menu li{
+    position: relative;
+    text-align: center;
+}
+
+.menu > li{
+    position: relative;
+    padding: 10px 20px;
+    color: #a34848;
+    cursor: pointer;
+    font-weight: bold;
+    
+    text-align: center;
+}
+.menu a{
+    text-decoration: none;
+    color: #132627;
+    font-weight: bold;
+    font-size: small;
+    display: block;
+    padding: 10px 10px;
+    text-align: center;
+}
+.menu > li:hover{
+    border-radius: 5px;
+    
+    
+}
+
+.submenu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    padding: 0;
+    width: 150px;
+    display: none;
+    border-radius: 5px;
+    text-align: center;
+}
+.submenu li{
+    padding: 1px;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    
+}
+.submenu li:hover{
+    /*background*/
+    color: #fff;
+    border: 1px solid  #132627;;
+    border-radius: 9px;
+    background-color:  #E6FFE6 ;
+}
+.menu li:hover .submenu{
+    display: block;
+}

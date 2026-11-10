@@ -1,0 +1,99 @@
+body{
+        background-image: url('https://res.cloudinary.com/dmayq2mna/image/upload/v1755031854/p5q7npivtmd3bhojkflc.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .container{
+        margin-top: 150px;
+        
+    }
+    .formulario{
+        background: -webkit-linear-gradient(90deg, #95adf4,#b7cff5,#d4e3f2);                          
+        background: linear-gradient(90deg, #95adf4,#b7cff5,#d4e3f2);                                             
+        
+        padding: 10px;
+        align-items: center;
+        text-align: center;
+    }
+    .form-label{
+        
+
+        color: #000;
+        border-radius: 4px;
+        padding: 3px;                                                                                       
+    }
+
+    .link{
+        text-decoration: none;
+        background-color: #CAEBEB;
+        background-size: contain;
+        border-radius: 4px;
+    }
+
+    .formulario{
+        border-radius: 7px;
+        padding-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;      
+    }
+
+
+.recuadro{
+  cursor: pointer;
+  background: rgba(180, 235, 209, 0.8);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  max-width: 280px;
+  color: #2e2929;
+  display: block;           
+}
+
+.boton {
+  background-color: rgb(159, 173, 170);
+  border-radius: 5px;
+}
+.boton:hover{               
+  background: #45a049;
+}
+
+.recuperar{
+  font-size: 14px;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+  color: #1f1a1a;
+}
+.recuperar:hover{           
+  color: #272424;
+}
+
+.password-container{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 280px;
+  position: relative;
+  margin: 5px 0;            
+}
+
+.password-container input{
+  width: 100%;
+  padding-right: 40px;      
+}
+
+.password-container button{
+  position: absolute;
+  right: 10px;
+  top: 50%;                 
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #0c0c0c;
+}
+    

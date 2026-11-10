@@ -1,0 +1,65 @@
+# ========================================
+# CONFIGURACIÓN DE URLS AMIGABLES
+# ========================================
+#
+# ESTE ARCHIVO PERMITE QUE LAS URLS SEAN MÁS LIMPIAS Y PROFESIONALES
+#
+# EJEMPLOS DE FUNCIONAMIENTO:
+# ---------------------------
+# ❌ SIN .htaccess: https://tudominio.com/index.php?uri=usuarios/ver/123
+# ✅ CON .htaccess:  https://tudominio.com/usuarios/ver/123
+#
+# ❌ SIN .htaccess: https://tudominio.com/index.php?uri=productos/agregar
+# ✅ CON .htaccess:  https://tudominio.com/productos/agregar
+#
+# ❌ SIN .htaccess: https://tudominio.com/index.php?uri=login
+# ✅ CON .htACCESS:  https://tudominio.com/login
+#
+# CÓMO FUNCIONAN LAS RUTAS:
+# -------------------------
+# 1. Nombre del controlador (ej: usuarios, productos, home)
+# 2. Nombre del método del controlador (ej: ver, agregar, index)
+# 3. Parámetros adicionales (ej: 123, id, etc.)
+#
+# EJEMPLOS DE RUTAS:
+# ------------------
+# /usuarios          → usuariosController->index()
+# /usuarios/ver      → usuariosController->ver()
+# /usuarios/ver/123  → usuariosController->ver(123)
+# /productos/agregar → productosController->agregar()
+# /home             → homeController->index()
+# /login            → loginController->index()
+#
+# REGLAS DE REESCRITURA:
+# ----------------------
+# RewriteEngine On          → Activa el motor de reescritura
+# RewriteCond !-d          → No reescribir si es un directorio
+# RewriteCond !-f          → No reescribir si es un archivo
+# RewriteRule ^(.+)$       → Captura cualquier URL
+# index.php?uri=$1         → Redirige a index.php con el parámetro uri
+# [QSA,L]                 → QSA=Query String Append, L=Last rule
+#
+# ========================================
+
+# REGLAS ACTIVAS (URLs amigables habilitadas)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule  ^(.+)$ index.php?uri=$1 [QSA,L]
+</IfModule>
+
+# ========================================
+# VERSIÓN COMENTADA (para desactivar temporalmente)
+# ========================================
+# 
+# Si necesitas desactivar las URLs amigables:
+# 1. Comenta las líneas activas de arriba (agrega # al inicio)
+# 2. Descomenta las líneas de abajo (quita # del inicio)
+#
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{REQUEST_FILENAME} !-d
+#   RewriteCond %{REQUEST_FILENAME} !-f
+#   RewriteRule  ^(.+)$ index.php?uri=$1 [QSA,L]
+# </IfModule>

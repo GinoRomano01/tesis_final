@@ -1,0 +1,54 @@
+use sanplacido;
+
+-- IMAGEN 2
+SHOW CREATE TABLE autorizaciondepago;
+SHOW CREATE TABLE caja;
+SHOW CREATE TABLE carrito;
+SHOW CREATE TABLE categoria;
+SHOW CREATE TABLE clientes;
+SHOW CREATE TABLE datosempresa;
+SHOW CREATE TABLE detallesdebalance;
+SHOW CREATE TABLE detallesproveedor;
+SHOW CREATE TABLE detallesventa;
+SHOW CREATE TABLE diseño;
+SHOW CREATE TABLE domicilio;
+SHOW CREATE TABLE emisor;
+SHOW CREATE TABLE entidadbancaria;
+SHOW CREATE TABLE entrega;
+SHOW CREATE TABLE estadobancarios;
+SHOW CREATE TABLE estadodepago;
+SHOW CREATE TABLE estadosdeentrega;
+SHOW CREATE TABLE facturacliente;
+SHOW CREATE TABLE insumosdecarpinteria;
+SHOW CREATE TABLE localidad;
+SHOW CREATE TABLE maderas;
+SHOW CREATE TABLE pais;
+SHOW CREATE TABLE pedido;
+SHOW CREATE TABLE pedidoscliente;
+SHOW CREATE TABLE producto;
+SHOW CREATE TABLE productocarrito;
+SHOW CREATE TABLE productoimagenes;
+
+-- IMAGEN 1
+SHOW CREATE TABLE productomaderas;
+SHOW CREATE TABLE proveedores;
+SHOW CREATE TABLE razonsocial;
+SHOW CREATE TABLE remito;
+SHOW CREATE TABLE soportedeproducción;
+SHOW CREATE TABLE stock;
+SHOW CREATE TABLE tipodeacabado;
+SHOW CREATE TABLE tipodealmacenamiento;
+SHOW CREATE TABLE tipodediseño;
+SHOW CREATE TABLE tipodedni;
+SHOW CREATE TABLE tipodeencargoremito;
+SHOW CREATE TABLE tipodeentrega;
+SHOW CREATE TABLE tipodeherraje;
+SHOW CREATE TABLE tipodemadera;
+SHOW CREATE TABLE tipodepago;
+SHOW CREATE TABLE tipodepedido;
+SHOW CREATE TABLE tipodeproducto;
+SHOW CREATE TABLE tipoderol;
+SHOW CREATE TABLE tipodeusuario;
+SHOW CREATE TABLE tipodomicilio;
+SHOW CREATE TABLE usuario;
+SHOW CREATE TABLE venta;

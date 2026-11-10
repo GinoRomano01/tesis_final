@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carpintería San Plácido - Stock</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta name="theme-color" content="#162232">
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+
+  <style>
+    .stock-kpis{
+      display:grid; grid-template-columns: repeat(4, minmax(140px,1fr));
+      gap:10px; margin:12px 0 10px;
+    }
+    .st-kpi{ background: var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:10px 12px; }
+    .st-kpi h4{ margin:0 0 6px; font-size:.9rem; opacity:.85; }
+    .st-kpi p{ margin:0; font-weight:800; font-size:1.05rem; }
+
+    .stock-header{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
+    .filtros{ display:flex; gap:8px; flex-wrap:wrap; }
+    .filtros input[type="search"], .filtros select{
+      padding:8px 10px; border:1px solid var(--card-border); border-radius:8px; background:transparent; color:inherit;
+    }
+
+    table.tabla-stock{ width:100%; border-collapse:collapse; background: var(--card-bg); }
+    table.tabla-stock thead th{
+      text-align:left; padding:10px 12px; background: rgba(148,163,184,.08); color: var(--card-title); border-bottom: 1px solid var(--card-border);
+    }
+    table.tabla-stock tbody td{
+      padding:10px 12px; color: var(--text-main); border-bottom:1px solid var(--card-border);
+    }
+    table.tabla-stock tbody tr:hover{ background: rgba(96,165,250,.08); }
+
+    .badge{ display:inline-block; padding:4px 10px; border-radius:999px; font-weight:700; font-size:.8rem; border:1px solid transparent; }
+    .st-ok{        color:#065f46; background:#d1fae5; border-color:#10b98133; }
+    .st-warning{   color:#92400e; background:#fef3c7; border-color:#f59e0b33; }
+    .st-danger{    color:#7f1d1d; background:#fee2e2; border-color:#ef444433; }
+
+    .row-warning{ background: rgba(234,179,8,.10); }
+    .row-danger{  background: rgba(239,68,68,.10); }
+
+    .btn-accion{ border:none; padding:6px 10px; border-radius:6px; font-weight:700; font-size:.9rem; cursor:pointer; transition:all .2s; }
+    .btnAjustar{ background:#3b82f6; color:#fff; } .btnAjustar:hover{ background:#2563eb; transform:scale(1.03); }
+    .btnEditar{  background:#f59e0b; color:#fff; } .btnEditar:hover{  background:#d97706; transform:scale(1.03); }
+    .btnEliminar{background:#dc2626; color:#fff; } .btnEliminar:hover{background:#b91c1c; transform:scale(1.03); }
+
+    .modal.hidden{ display:none; }
+    .modal .modal-content{ width:min(720px,96vw); }
+    .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+    @media(max-width:700px){ .grid-2{ grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand-block">
+          <div class="brand-top">
+            <img src="../assets/img/Logo_1.png" alt="Logo San Plácido" class="logo-sp">
+            <div class="brand-name">San Plácido</div>
+          </div>
+        </div>
+
+        <nav class="nav-block">
+          <ul class="menu">
+            <li class="nav-item">
+              <a href="entregas.html">🚚 Entregas</a>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false">
+                <span>📊 Estadísticas</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a href="estadisticas.html?tab=clientes">👤 Cliente</a></li>
+                <li><a href="estadisticas.html?tab=stock">📦 Stock</a></li>
+                <li><a href="estadisticas.html?tab=ventas">💰 Ventas</a></li>
+                <li><a href="estadisticas.html?tab=visitas">📈 Visitas</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false">
+                <span>🪚 Producción</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a href="#">🪵 Encargos</a></li>
+                <li><a href="corte.html">🧰 Muebles</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false">
+                <span>📦 Productos</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a href="productos.html">🗂️ Lista de productos</a></li>
+                <li><a href="pedidos.html">🧾 Pedidos</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class="active" aria-current="page">📦 Stock</a>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false">
+                <span>💳 Transacciones</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a href="#">💵 Caja</a></li>
+                <li><a href="#">💰 Cobros</a></li>
+                <li><a href="#">🔄 Movimientos</a></li>
+                <li><a href="#">📄 Remitos</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="../../app/vistas/Persona.php">👥 Usuarios</a>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false">
+                <span>🧾 Ventas</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a href="#">📃 Facturas</a></li>
+                <li><a href="#">📋 Listado de ventas</a></li>
+                <li><a href="#">⚠️ Reclamos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-user-row">
+          <span class="user-label">Usuario</span>
+          <a class="logout-btn" href="Persona.php">Salir</a>
+        </div>
+        <div style="margin-top:8px;">© 2025 San Plácido</div>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="env-loc">
+            <a href="https://www.google.com/maps/search/?api=1&query=Z%C3%A1rate+1920,+C%C3%B3rdoba,+Argentina" target="_blank" rel="noopener noreferrer">
+              📍 Córdoba • Barrio Zumarán • Calle Zárate 1920
+            </a>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button id="menuToggle" class="icon-btn" title="Menú">☰</button>
+          <button id="themeToggle" class="theme-toggle-btn" title="Cambiar tema">☀️</button>
+          <button id="notifBtn" class="icon-btn notif-bell" title="Notificaciones">
+            🔔<span class="notif-badge" id="notifCount">3</span>
+          </button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificaciones</div>
+            <ul class="notif-list">
+              <li><strong>Pedido #1023</strong> listo para corte</li>
+              <li><strong>Stock</strong> Placa MDF 18mm bajo</li>
+              <li><strong>Cliente</strong> García confirmó presupuesto</li>
+            </ul>
+            <div class="notif-footer"><a href="#">Ver todas</a></div>
+          </div>
+        </div>
+      </header>
+
+      <main class="content" id="stockRoot">
+        <nav class="breadcrumbs"><a href="../index.html">Inicio</a> › <span>Stock</span></nav>
+
+        <h1>📦 Stock</h1>
+
+        <div class="stock-header">
+          <div class="filtros">
+            <input id="stFilterText" type="search" placeholder="Buscar código / nombre / nota" class="input" style="min-width:240px">
+            <select id="stFilterCat" class="input">
+              <option value="">Categoría (todas)</option>
+              <option value="Maderas">Maderas</option>
+              <option value="Aberturas">Aberturas</option>
+              <option value="Herrajes">Herrajes</option>
+            </select>
+            <select id="stFilterEstado" class="input">
+              <option value="">Estado (todos)</option>
+              <option value="OK">OK</option>
+              <option value="Bajo">Bajo</option>
+              <option value="Crítico">Crítico</option>
+            </select>
+            <button id="stApply" class="btn btn-ghost">Aplicar</button>
+            <button id="stClear" class="btn btn-ghost">Limpiar</button>
+          </div>
+
+          <div class="items-actions">
+            <button id="stNuevo" class="btn">+ Nuevo ítem</button>
+            <button id="stExport" class="btn btn-ghost">Exportar CSV</button>
+          </div>
+        </div>
+
+        <div class="tabla-wrapper">
+          <table class="tabla-stock">
+          <thead>
+            <tr>
+                <th>ID</th>
+                <th>Código</th>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Estado</th>
+                <th>Observaciones</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaStock"></tbody>
+
+            <tbody id="tablaStock"></tbody>
+          </table>
+        </div>
+      </main>
+
+      <div class="modal hidden" id="modalStock">
+        <div class="modal-content">
+          <h2>Ítem de stock</h2>
+          <form id="formStock">
+            <div class="grid-2">
+              <div>
+                <label>Código (opcional)</label>
+                <input type="text" id="stCodigo" placeholder="Ej: MDF18-1224">
+              </div>
+              <div>
+                <label>Producto</label>
+                <input type="text" id="stNombre" required>
+              </div>
+              <div>
+                <label>Categoría</label>
+                <select id="stCategoria">
+                  <option value="Maderas">Maderas</option>
+                  <option value="Aberturas">Aberturas</option>
+                  <option value="Herrajes">Herrajes</option>
+                </select>
+              </div>
+              <div>
+                <label>Precio (ARS)</label>
+                <input type="number" id="stPrecio" min="0" step="1" required>
+              </div>
+              <div>
+                <label>Stock</label>
+                <input type="number" id="stCantidad" min="0" step="1" required>
+              </div>
+              <div>
+                <label>Estado</label>
+                <select id="stEstado">
+                  <option>OK</option>
+                  <option>Bajo</option>
+                  <option>Crítico</option>
+                </select>
+              </div>
+              <div style="grid-column:1/-1">
+                <label>Observaciones</label>
+                <textarea id="stObs" rows="2" placeholder="Notas internas"></textarea>
+              </div>
+            </div>
+
+            <div class="modal-actions" style="margin-top:10px">
+              <button type="submit" class="btn">Guardar</button>
+              <button type="button" id="stCerrar" class="btn btn-ghost">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal hidden" id="modalAjuste">
+        <div class="modal-content">
+          <h2>Ajustar stock</h2>
+          <form id="formAjuste">
+            <p id="ajNombre" style="margin:0 0 8px;color:var(--card-title)"></p>
+            <div class="grid-2">
+              <div>
+                <label>Movimiento</label>
+                <select id="ajTipo">
+                  <option value="sumar">Sumar</option>
+                  <option value="restar">Restar</option>
+                </select>
+              </div>
+              <div>
+                <label>Cantidad</label>
+                <input type="number" id="ajCant" min="1" step="1" value="1">
+              </div>
+            </div>
+            <div class="modal-actions" style="margin-top:10px">
+              <button type="submit" class="btn">Aplicar</button>
+              <button type="button" id="ajCerrar" class="btn btn-ghost">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <small>San Plácido - Córdoba, Barrio Zumarán, Calle Zárate | Sistema interno 2025</small>
+      </footer>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>
+
+<style>
+
+</style>

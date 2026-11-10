@@ -1,0 +1,419 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fa;
+  color: #333;
+}
+
+
+.sidebar {
+  width: 260px;
+  background-color: #2f3b52;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  user-select: none;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #4a5a7a;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+
+.menu {
+  list-style: none;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.menu > li {
+  cursor: pointer;
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.25s ease;
+}
+
+.menu > li > span {
+  display: flex;
+  align-items: center;
+}
+
+.menu > li:hover,
+.menu > li.activo {
+  background-color: #415175;
+}
+
+.menu > li > span > .icon {
+  margin-right: 10px;
+  font-size: 1.3rem;
+  width: 24px;
+  text-align: center;
+}
+
+
+.menu-item > ul.submenu {
+  list-style: none;
+  max-height: 0;
+  overflow: hidden;
+  padding-left: 35px;
+  margin-top: 5px;
+  transition: max-height 0.35s ease, padding 0.3s ease;
+}
+
+.menu-item.active > ul.submenu {
+  max-height: 300px;
+  padding-top: 8px;
+}
+
+.menu-item > ul.submenu > li {
+  padding: 8px 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #d1d9ff;
+  transition: background-color 0.2s ease;
+}
+
+.menu-item > ul.submenu > li:hover {
+  background-color: #5468a0;
+  color: #fff;
+}
+
+
+.main-content {
+  flex-grow: 1;
+  background: #fff;
+  padding: 30px 40px;
+  overflow-y: auto;
+  border-radius: 0 10px 10px 0;
+  box-shadow: inset 0 0 20px #e0e4f2;
+}
+
+.main-content section {
+  display: none;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.main-content section.active {
+  display: block;
+}
+
+.main-content h2 {
+  margin-bottom: 20px;
+  color: #2f3b52;
+  font-weight: 700;
+  border-bottom: 3px solid #5468a0;
+  padding-bottom: 8px;
+}
+
+
+.sidebar .menu {
+  scrollbar-width: thin;
+  scrollbar-color: #415175 transparent;
+}
+
+.sidebar .menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar .menu::-webkit-scrollbar-thumb {
+  background-color: #415175;
+  border-radius: 3px;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+input[type="text"].filter,
+select.filter {
+  max-width: 180px;      
+  padding: 4px 8px;      
+  font-size: 0.9rem;     
+  margin-right: 10px;
+}
+
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;              
+}
+
+.actions button.edit {
+  background-color: #ff9800;  
+  color: white;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.actions button.edit:hover {
+  background-color: #e67e00;
+}
+
+.actions button.delete {
+  background-color: #e53935;  
+  color: white;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.actions button.delete:hover {
+  background-color: #b71c1c;
+}
+
+
+
+
+
+
+
+
+
+
+
+#lista-ventas {
+  max-width: 1000px;
+  margin: 20px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+
+#lista-ventas h2 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  text-align: center;
+  color: #222;
+}
+
+
+.filtros-ventas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+
+#buscador-ventas {
+  flex: 1 1 250px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+#buscador-ventas:focus {
+  border-color: #ff6600;
+  outline: none;
+}
+
+
+.filtros-rapidos {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filtros-rapidos button {
+  background-color: #f0f0f0;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #555;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.filtros-rapidos button:hover,
+.filtros-rapidos button.active {
+  background-color: #ff6600;
+  border-color: #ff6600;
+  color: white;
+}
+#inventario{
+  overflow: hidden
+}
+
+.filtros-fechas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.filtros-fechas label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+}
+
+.filtros-fechas input[type="date"] {
+  margin-top: 4px;
+  padding: 5px 8px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.filtros-fechas input[type="date"]:focus {
+  border-color: #ff6600;
+  outline: none;
+}
+
+
+#tabla-ventas {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+  font-size: 0.95rem;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  table-layout: fixed;
+}
+
+
+#tabla-ventas thead {
+  background-color: #ff6600;
+  color: white;
+  font-weight: 700;
+}
+
+#tabla-ventas thead th {
+  padding: 12px 10px;
+  text-align: left;
+  white-space: nowrap;
+  user-select: none;
+}
+
+
+#tabla-ventas tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+#tabla-ventas tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+#tabla-ventas tbody tr:hover {
+  background-color: #fff4e5;
+}
+
+
+#tabla-ventas button {
+  border: none;
+  border-radius: 5px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+  margin-right: 6px;
+}
+
+.btn-editar {
+  background-color: #ffa726; 
+  color: white;
+}
+
+.btn-editar:hover {
+  background-color: #e68a00;
+}
+
+.btn-eliminar {
+  background-color: #e53935; 
+  color: white;
+}
+
+.btn-eliminar:hover {
+  background-color: #b71c1c;
+}
+
+
+#mensaje-no-resultados {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+}
+
+
+@media (max-width: 720px) {
+  .filtros-ventas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filtros-rapidos {
+    justify-content: center;
+  }
+  #tabla-ventas thead {
+    display: none; 
+  }
+  #tabla-ventas tbody td {
+    display: block;
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    white-space: normal;
+  }
+  #tabla-ventas tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    padding-left: 10px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+  }
+  #tabla-ventas tbody tr {
+    margin-bottom: 15px;
+    display: block;
+    border-bottom: 2px solid #eee;
+  }
+
+}

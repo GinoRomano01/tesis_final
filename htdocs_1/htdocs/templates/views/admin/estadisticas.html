@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Estadísticas — Carpintería San Plácido</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta name="theme-color" content="#162232">
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <style>
+    .stats-header{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .stats-tabs{display:flex;gap:6px;flex-wrap:wrap}
+    .stats-tab{padding:6px 10px;border-radius:8px;border:1px solid var(--card-border);background:var(--card-bg);color:var(--card-title);font-size:.85rem;cursor:pointer}
+    .stats-tab.active{background:rgba(96,165,250,.18);border-color:rgba(96,165,250,.45)}
+    .filters-row{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+    .filters-row label{font-size:.85rem;color:var(--card-desc);display:grid;gap:6px}
+    .filters-row input[type="date"], .filters-row select{
+      background:var(--card-bg); border:1px solid var(--card-border); color:var(--text-main);
+      border-radius:8px; padding:6px 10px; font-size:.85rem;
+    }
+    .filters-actions{display:flex;gap:8px}
+    .filters-actions .btn{background:var(--btn-bg);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-size:.85rem;cursor:pointer}
+    .filters-actions .btn:hover{background:var(--btn-bg-hover)}
+
+    .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:12px 0}
+    .kpi{background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:12px}
+    .kpi-label{font-size:.8rem;color:var(--card-desc)}
+    .kpi-value{display:block;margin-top:4px;font-weight:700;font-size:1.15rem;color:var(--card-title)}
+
+    .charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+    .chart-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:12px}
+    .chart-card h3{color:var(--card-title);font-size:.95rem;margin-bottom:8px}
+    .chart-wrap{position:relative;height:260px}
+    canvas{display:block}
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand-block">
+          <div class="brand-top">
+            <img src="../assets/img/Logo_1.png" alt="Logo San Plácido" class="logo-sp">
+            <div class="brand-name">San Plácido</div>
+          </div>
+        </div>
+
+        <nav class="nav-block">
+          <ul class="menu">
+            <li class="nav-item"><a href="#">🚚 Entregas</a></li>
+
+            <li class="nav-group open">
+              <button class="nav-toggle" aria-expanded="true">
+                <span>📊 Estadísticas</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a class="active" href="estadisticas.html?tab=clientes">👤 Cliente</a></li>
+                <li><a href="estadisticas.html?tab=stock">📦 Stock</a></li>
+                <li><a href="estadisticas.html?tab=ventas">💰 Ventas</a></li>
+                <li><a href="estadisticas.html?tab=visitas">📈 Visitas</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false"><span>🪚 Producción</span><span class="nav-chevron"></span></button>
+              <ul class="submenu">
+                <li><a href="#">🪵 Encargos</a></li>
+                <li><a href="corte.html">🧰 Muebles</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false"><span>📦 Productos</span><span class="nav-chevron"></span></button>
+              <ul class="submenu">
+                <li><a href="productos.html">🗂️ Lista de productos</a></li>
+                <li><a href="pedidos.html">🧾 Pedidos</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item"><a href="productos.html">📦 Stock</a></li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false"><span>💳 Transacciones</span><span class="nav-chevron"></span></button>
+              <ul class="submenu">
+                <li><a href="#">💵 Caja</a></li>
+                <li><a href="#">💰 Cobros</a></li>
+                <li><a href="#">🔄 Movimientos</a></li>
+                <li><a href="#">📄 Remitos</a></li>
+              </ul>
+            </li>
+
+              <a href="Persona.php">👥 Usuarios</a>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false"><span>🧾 Ventas</span><span class="nav-chevron"></span></button>
+              <ul class="submenu">
+                <li><a href="#">📃 Facturas</a></li>
+                <li><a href="#">📋 Listado de ventas</a></li>
+                <li><a href="#">⚠️ Reclamos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-user-row">
+          <span class="user-label">Usuario</span>
+          <a class="logout-btn" href="../../app/controladores/logout.php">Salir</a>
+        </div>
+        <div style="margin-top:8px;">© 2025 San Plácido</div>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="env-loc">
+            <a href="https://www.google.com/maps/search/?api=1&query=Z%C3%A1rate+1920,+C%C3%B3rdoba,+Argentina" target="_blank" rel="noopener noreferrer">
+              📍 Córdoba • Barrio Zumarán • Calle Zárate 1920
+            </a>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button id="menuToggle" class="icon-btn" title="Menú">☰</button>
+          <button id="themeToggle" class="theme-toggle-btn" title="Cambiar tema">☀️</button>
+          <button id="notifBtn" class="icon-btn notif-bell" title="Notificaciones">🔔<span class="notif-badge" id="notifCount">2</span></button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificaciones</div>
+            <ul class="notif-list">
+              <li><strong>Reporte</strong> exportado con éxito</li>
+              <li><strong>Ventas</strong> superaron el objetivo semanal</li>
+            </ul>
+            <div class="notif-footer"><a href="#">Ver todas</a></div>
+          </div>
+        </div>
+      </header>
+
+      <main id="estadisticasRoot" class="content">
+        <nav class="breadcrumbs"><a href="../index.html">Inicio</a> › <span>Estadísticas</span></nav>
+
+        <div class="stats-header">
+          <div class="stats-tabs" id="statsTabs">
+            <button class="stats-tab active" data-tab="clientes">Clientes</button>
+            <button class="stats-tab" data-tab="stock">Stock</button>
+            <button class="stats-tab" data-tab="ventas">Ventas</button>
+            <button class="stats-tab" data-tab="visitas">Visitas</button>
+          </div>
+
+          <div class="filters-row">
+            <label>Desde <input type="date" id="fromDate"></label>
+            <label>Hasta <input type="date" id="toDate"></label>
+            <label>Periodo
+              <select id="periodo">
+                <option value="6m" selected>Últimos 6 meses</option>
+                <option value="12m">Últimos 12 meses</option>
+                <option value="mtd">Mes en curso</option>
+                <option value="ytd">Año en curso</option>
+              </select>
+            </label>
+            <div class="filters-actions">
+              <button class="btn" id="btnAplicarFiltros">Aplicar</button>
+              <button class="btn" id="btnExcel">Exportar Excel</button>
+              <button class="btn" id="btnPDF">Exportar PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <section class="dash-section">
+          <h2 class="dash-title">Resumen</h2>
+          <div class="kpis">
+            <div class="kpi"><div class="kpi-label">Clientes totales</div><span class="kpi-value" id="kClientesTotales">—</span></div>
+            <div class="kpi"><div class="kpi-label">Nuevos este mes</div><span class="kpi-value" id="kClientesNuevos">—</span></div>
+            <div class="kpi"><div class="kpi-label">Activos 90 días</div><span class="kpi-value" id="kClientesActivos">—</span></div>
+            <div class="kpi"><div class="kpi-label">Recompra</div><span class="kpi-value" id="kClientesRecompra">—</span></div>
+
+            <div class="kpi"><div class="kpi-label">Ventas (monto)</div><span class="kpi-value" id="kVentasMonto">—</span></div>
+            <div class="kpi"><div class="kpi-label">Tickets</div><span class="kpi-value" id="kVentasTickets">—</span></div>
+            <div class="kpi"><div class="kpi-label">Ticket promedio</div><span class="kpi-value" id="kVentasPromedio">—</span></div>
+            <div class="kpi"><div class="kpi-label">Exitosas</div><span class="kpi-value" id="kVentasExitosas">—</span></div>
+
+            <div class="kpi"><div class="kpi-label">SKUs</div><span class="kpi-value" id="kSkus">—</span></div>
+            <div class="kpi"><div class="kpi-label">Bajo mínimo</div><span class="kpi-value" id="kBajoMin">—</span></div>
+            <div class="kpi"><div class="kpi-label">Valorizado</div><span class="kpi-value" id="kValorizado">—</span></div>
+            <div class="kpi"><div class="kpi-label">Rotación (días)</div><span class="kpi-value" id="kRotacion">—</span></div>
+
+            <div class="kpi"><div class="kpi-label">Visitas</div><span class="kpi-value" id="kVisitas">—</span></div>
+            <div class="kpi"><div class="kpi-label">Únicos</div><span class="kpi-value" id="kUnicos">—</span></div>
+            <div class="kpi"><div class="kpi-label">Rebote</div><span class="kpi-value" id="kRebote">—</span></div>
+            <div class="kpi"><div class="kpi-label">Tiempo medio</div><span class="kpi-value" id="kTiempo">—</span></div>
+          </div>
+        </section>
+
+        <section class="dash-section" data-section="clientes">
+          <div class="charts-grid">
+            <div class="chart-card">
+              <h3>Clientes por mes</h3>
+              <div class="chart-wrap"><canvas id="chClientesAltas"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h3>Top clientes por facturación</h3>
+              <div class="chart-wrap"><canvas id="chClientesTop"></canvas></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="dash-section" data-section="ventas" style="display:none">
+          <div class="charts-grid">
+            <div class="chart-card">
+              <h3>Ventas (últimos meses)</h3>
+              <div class="chart-wrap"><canvas id="chVentasMes"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h3>Conversión</h3>
+              <div class="chart-wrap"><canvas id="chConversion"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h3>Top productos</h3>
+              <div class="chart-wrap"><canvas id="chTopProductos"></canvas></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="dash-section" data-section="stock" style="display:none">
+          <div class="charts-grid">
+            <div class="chart-card">
+              <h3>Stock por categoría</h3>
+              <div class="chart-wrap"><canvas id="chStockCategorias"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h3>Ítems bajo mínimo</h3>
+              <div class="chart-wrap"><canvas id="chBajoStock"></canvas></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="dash-section" data-section="visitas" style="display:none">
+          <div class="charts-grid">
+            <div class="chart-card">
+              <h3>Visitas por día</h3>
+              <div class="chart-wrap"><canvas id="chVisitasDia"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h3>Dispositivos</h3>
+              <div class="chart-wrap"><canvas id="chDispositivos"></canvas></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <small>San Plácido - Estadísticas | Sistema interno 2025</small>
+      </footer>
+    </div>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('.stats-tab');
+      const sections = document.querySelectorAll('[data-section]');
+      const params = new URLSearchParams(location.search);
+      const initial = params.get('tab') || 'clientes';
+
+      function activate(name){
+        tabs.forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
+        sections.forEach(s=>s.style.display = (s.dataset.section===name)?'':'none');
+      }
+      activate(initial);
+
+      tabs.forEach(b=>{
+        b.addEventListener('click', ()=>{
+          activate(b.dataset.tab);
+          history.replaceState(null,'','?tab='+b.dataset.tab);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

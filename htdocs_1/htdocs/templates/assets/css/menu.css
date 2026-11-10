@@ -1,0 +1,38 @@
+nav ul{
+    list-style: none;
+}
+
+nav ul li{
+    margin: 15px 0;
+    position: relative;
+
+}
+nav ul li a{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(20,40, 50);
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 5px;
+    background-color: rgb(140, 190, 210);
+    border-radius: 5px;
+}
+.subopciones{
+    list-style: none;
+    padding-left: 15px;
+    display: none;
+}
+.subopciones li a{
+    background: rgb(160, 200,220);
+    text-align: left;
+    color: rgb(20,40, 50);
+    padding: 3px;
+}
+nav ul li:hover .subopciones{
+    display: block;
+}
+.opcion-menu{
+    color: #000;
+}

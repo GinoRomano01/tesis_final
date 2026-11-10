@@ -1,0 +1,7 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^7.0",
+        "mercadopago/dx-php": "^2.6",
+        "phpoffice/phpspreadsheet": "1.29"
+    }
+}

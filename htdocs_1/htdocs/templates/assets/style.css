@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url("/portafolio/imagenes/dan-meyers-vbjIjLY4MXQ-unsplash.jpg");
+}
+header{
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 15px;
+    background-image: url("/portafolio/imagenes/v915-wit-007-k.jpg");
+    padding: 20px;
+    padding-right: 5px;
+    font-size: 15px;
+    height: 70px;
+    
+    
+}
+.container{
+    display: flex;
+    flex: 1;
+    
+}
+main{
+    border-radius: 5px;
+    flex: 3;
+    padding: 20px;
+    margin-left: 250px;
+    background-color: #f0f0f0;
+    margin-right: 15px;
+}
+.container-main{
+    color: #000;
+}
+
+aside{
+    flex: 1;
+    background: rgb(100,150,160);
+    color: #000;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    margin-left: 5px;
+    right: auto;
+    top: 70px;
+    height: 100vh;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+
+
+
+.boton-usuario{
+    margin-left:15px;
+    margin-right: 30px;
+    text-decoration: none;
+    color: #52926e;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    
+}
+#icono-carpinteria{
+    height: 50px;
+    width: 45px;
+    margin-left: px 0;
+    padding: 0px;
+    border: 1px;
+}
+#titulo-principal{
+    margin-left: 0px;
+    color: #000;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-right: 60%;
+   
+}
