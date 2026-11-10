@@ -1,0 +1,78 @@
+:root{
+  --navy:#0E1B33; --navy-deep:#081226; --amber:#F0A800; --gold:#B4863A;
+  --paper:#F4F1E8; --ink:#1C2233; --muted:#5B6072; --line:#E2DFD3; --danger:#C0392B;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:'Work Sans', Arial, sans-serif; background:var(--paper); color:var(--ink);}
+
+.login-page{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  background:var(--navy);
+}
+.login-box{
+  background:white; padding:40px; border-radius:10px; width:340px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.3);
+}
+.login-box h1{font-size:20px; margin-bottom:24px; text-align:center;}
+.login-box label{font-size:13px; font-weight:700; display:block; margin-bottom:6px; margin-top:14px;}
+.login-box input{width:100%; padding:10px; border:1px solid var(--line); border-radius:4px; font-size:14px;}
+.login-box button{
+  width:100%; margin-top:22px; padding:12px; background:var(--amber); border:none;
+  border-radius:4px; font-weight:700; cursor:pointer;
+}
+.login-box .error{color:var(--danger); font-size:13px; margin-top:12px; text-align:center;}
+
+.admin-layout{display:flex; min-height:100vh;}
+.sidebar{
+  width:220px; background:var(--navy); color:var(--paper); padding:24px 0; flex-shrink:0;
+}
+.sidebar .brand{padding:0 24px 24px; font-weight:800; font-size:18px; border-bottom:1px solid rgba(255,255,255,0.1);}
+.sidebar nav{margin-top:16px;}
+.sidebar nav a{
+  display:block; padding:12px 24px; color:#B9C1D4; font-weight:600; font-size:14px; cursor:pointer;
+}
+.sidebar nav a.active, .sidebar nav a:hover{background:rgba(255,255,255,0.08); color:white;}
+.sidebar .logout{position:absolute; bottom:24px; padding:0 24px; color:#B9C1D4; cursor:pointer; font-size:13px;}
+
+.main{flex:1; padding:32px; overflow-x:auto;}
+.main h2{margin-bottom:20px;}
+
+.stats-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:16px; margin-bottom:32px;}
+.stat-card{background:white; border:1px solid var(--line); border-radius:8px; padding:20px;}
+.stat-card .num{font-size:28px; font-weight:800; color:var(--navy);}
+.stat-card .label{font-size:13px; color:var(--muted);}
+
+table{width:100%; border-collapse:collapse; background:white; border-radius:8px; overflow:hidden;}
+th, td{padding:10px 12px; border-bottom:1px solid var(--line); font-size:14px; text-align:left;}
+th{background:var(--navy); color:white; font-size:12px; text-transform:uppercase;}
+tr:hover td{background:#FAF9F4;}
+
+.toolbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
+.btn{padding:10px 18px; border:none; border-radius:4px; font-weight:700; cursor:pointer; font-size:13px;}
+.btn-amber{background:var(--amber); color:var(--navy);}
+.btn-danger{background:var(--danger); color:white;}
+.btn-outline{background:transparent; border:1px solid var(--line);}
+.btn-small{padding:6px 10px; font-size:12px;}
+
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none;
+  align-items:center; justify-content:center; z-index:200;
+}
+.modal-overlay.abierto{display:flex;}
+.modal{background:white; border-radius:8px; padding:28px; width:480px; max-height:85vh; overflow-y:auto;}
+.modal h3{margin-bottom:18px;}
+.modal label{font-size:13px; font-weight:700; display:block; margin-top:12px; margin-bottom:4px;}
+.modal input, .modal select, .modal textarea{
+  width:100%; padding:9px; border:1px solid var(--line); border-radius:4px; font-size:14px; font-family:inherit;
+}
+.modal .modal-actions{display:flex; justify-content:flex-end; gap:10px; margin-top:22px;}
+.preview-imagenes{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;}
+.preview-imagenes img{width:60px; height:60px; object-fit:cover; border-radius:4px; border:1px solid var(--line);}
+
+.badge{padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700;}
+.badge-nuevo{background:#FDE9D9; color:#9C4500;}
+.badge-contactado{background:#DCEEFB; color:#1B6FA8;}
+.badge-presupuestado{background:#EAE0FB; color:#5B2E9C;}
+.badge-en_obra{background:#FFF3C4; color:#8A6D00;}
+.badge-finalizado{background:#D9F2E3; color:#0E7C42;}
+.badge-cancelado{background:#F8D7DA; color:#842029;}

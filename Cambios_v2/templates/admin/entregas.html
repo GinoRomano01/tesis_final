@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carpintería San Plácido - Entregas</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta name="theme-color" content="#162232">
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+
+  
+  <style>
+    
+    .tabla.entregas {
+      background: rgba(59,130,246,0.07);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .tabla.entregas thead th {
+      background: rgba(59,130,246,0.12);
+    }
+
+    
+    .estado-badge{
+      display:inline-block; padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:600;
+    }
+    .estado-pendiente{  background:#fef3c7; color:#92400e; }   
+    .estado-en-curso{   background:#e0f2fe; color:#075985; }   
+    .estado-completada{ background:#dcfce7; color:#166534; }   
+    .estado-cancelada{  background:#fee2e2; color:#991b1b; }   
+
+    
+    .entregas-header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px;
+      flex-wrap:wrap;
+    }
+    .filtros{
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .filtros input[type="date"], .filtros select, .filtros input[type="search"]{
+      padding:8px 10px; border:1px solid rgba(148,163,184,.35); border-radius:8px; background:transparent; color:inherit;
+    }
+
+    .mini-kpis{
+      display:grid; grid-template-columns: repeat(4, minmax(120px,1fr)); gap:10px; margin:14px 0 8px;
+    }
+    .mini-kpi{
+      background: var(--card-bg, rgba(148,163,184,.08)); border:1px solid rgba(148,163,184,.25);
+      padding:10px 12px; border-radius:12px;
+    }
+    .mini-kpi h4{ margin:0 0 6px; font-size:.9rem; opacity:.85;}
+    .mini-kpi p{ margin:0; font-weight:700; }
+
+    .hidden{ display:none; }
+
+    
+    
+    .tabla.entregas .btn.btn-ghost{
+      background-color:#f59e0b; 
+      color:#fff;
+      border-color: transparent;
+    }
+    .tabla.entregas .btn.btn-ghost:hover{
+      background-color:#d97706;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand-block">
+          <div class="brand-top">
+            <img src="../assets/img/Logo_1.png" alt="Logo San Plácido" class="logo-sp">
+            <div class="brand-name">San Plácido</div>
+          </div>
+        </div>
+
+        <nav class="nav-block">
+          <ul class="menu">
+            <li class="nav-item">
+              
+              <a href="entregas.html" aria-current="page">🚚 Entregas</a>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false">
+                <span>📊 Estadísticas</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a href="estadisticas.html?tab=clientes">👤 Cliente</a></li>
+                <li><a href="estadisticas.html?tab=stock">📦 Stock</a></li>
+                <li><a href="estadisticas.html?tab=ventas">💰 Ventas</a></li>
+                <li><a href="estadisticas.html?tab=visitas">📈 Visitas</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false">
+                <span>🪚 Producción</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a href="#">🪵 Encargos</a></li>
+                <li><a href="corte.html">🧰 Muebles</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false">
+                <span>📦 Productos</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a href="productos.html">🗂️ Lista de productos</a></li>
+                <li><a href="pedidos.html">🧾 Pedidos</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="productos.html">📦 Stock</a>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false">
+                <span>💳 Transacciones</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a href="#">💵 Caja</a></li>
+                <li><a href="#">💰 Cobros</a></li>
+                <li><a href="#">🔄 Movimientos</a></li>
+                <li><a href="#">📄 Remitos</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="Persona.php">👥 Usuarios</a>
+            </li>
+
+            <li class="nav-group">
+              <button class="nav-toggle" aria-expanded="false">
+                <span>🧾 Ventas</span><span class="nav-chevron"></span>
+              </button>
+              <ul class="submenu">
+                <li><a href="#">📃 Facturas</a></li>
+                <li><a href="#">📋 Listado de ventas</a></li>
+                <li><a href="#">⚠️ Reclamos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-user-row">
+          <span class="user-label">Usuario</span>
+          <a class="logout-btn" href="../../app/controladores/logout.php">Salir</a>
+        </div>
+        <div style="margin-top:8px;">© 2025 San Plácido</div>
+      </div>
+    </aside>
+
+    
+    <div class="main-area">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="env-loc">
+            <a href="https://www.google.com/maps/search/?api=1&query=Z%C3%A1rate+1920,+C%C3%B3rdoba,+Argentina"
+              target="_blank" rel="noopener noreferrer">
+              📍 Córdoba • Barrio Zumarán • Calle Zárate 1920
+            </a>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button id="menuToggle" class="icon-btn" title="Menú">☰</button>
+          <button id="themeToggle" class="theme-toggle-btn" title="Cambiar tema">☀️</button>
+          <button id="notifBtn" class="icon-btn notif-bell" title="Notificaciones">
+            🔔<span class="notif-badge" id="notifCount">3</span>
+          </button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-header">Notificaciones</div>
+            <ul class="notif-list">
+              <li><strong>Pedido #1023</strong> listo para corte</li>
+              <li><strong>Stock</strong> Placa MDF 18mm bajo</li>
+              <li><strong>Cliente</strong> García confirmó presupuesto</li>
+            </ul>
+            <div class="notif-footer"><a href="#">Ver todas</a></div>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <nav class="breadcrumbs"><a href="../index.html">Inicio</a> › <span>Entregas</span></nav>
+
+        <section class="dashboard">
+          <h1>🚚 Entregas</h1>
+
+          
+          <div class="mini-kpis">
+            <div class="mini-kpi">
+              <h4>Hoy</h4>
+              <p id="kpiEntregasHoy">—</p>
+            </div>
+            <div class="mini-kpi">
+              <h4>Pendientes</h4>
+              <p id="kpiPendientes">—</p>
+            </div>
+            <div class="mini-kpi">
+              <h4>En curso</h4>
+              <p id="kpiEnCurso">—</p>
+            </div>
+            <div class="mini-kpi">
+              <h4>Completadas</h4>
+              <p id="kpiCompletadas">—</p>
+            </div>
+          </div>
+
+          <div class="entregas-header">
+            <div class="filtros">
+              <input type="date" id="fDesde" />
+              <input type="date" id="fHasta" />
+              <select id="fEstado">
+                <option value="">Todos los estados</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="En curso">En curso</option>
+                <option value="Completada">Completada</option>
+                <option value="Cancelada">Cancelada</option>
+              </select>
+              <input type="search" id="fBuscar" placeholder="Buscar cliente o dirección..." />
+              <button id="btnFiltrar" class="btn btn-ghost">Aplicar</button>
+            </div>
+
+            <button id="nuevaEntregaBtn" class="btn">+ Nueva entrega</button>
+          </div>
+
+          <div class="tabla-wrapper">
+            <table class="tabla entregas">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Cliente</th>
+                  <th>Dirección</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Observaciones</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaEntregas"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      
+      <div id="modalEntrega" class="modal hidden">
+        <div class="modal-content">
+          <h2>Nueva entrega</h2>
+          <form id="formEntrega">
+            <label>Cliente:</label>
+            <input type="text" id="entCliente" required>
+
+            <label>Dirección:</label>
+            <input type="text" id="entDireccion" required>
+
+            <label>Fecha de entrega:</label>
+            <input type="date" id="entFecha" required>
+
+            <label>Observaciones:</label>
+            <textarea id="entObs" rows="3"></textarea>
+
+            <div class="modal-actions">
+              <button type="submit" class="btn">Guardar</button>
+              <button type="button" id="cerrarModal" class="btn btn-ghost">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <small>San Plácido - Córdoba, Barrio Zumarán, Calle Zárate | Sistema interno 2025</small>
+      </footer>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="../assets/js/app.js"></script>
+
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const tbody = document.getElementById("tablaEntregas");
+      const modal = document.getElementById("modalEntrega");
+      const cerrar = document.getElementById("cerrarModal");
+
+      if (tbody) {
+        const toBadge = () => {
+          [...tbody.querySelectorAll("tr")].forEach(tr => {
+            const tdEstado = tr.children[4];
+            if (!tdEstado) return;
+            const raw = (tdEstado.textContent || "").trim();
+            const txt = raw.toLowerCase();
+            let cls = "estado-badge ";
+            if (txt === "pendiente") cls += "estado-pendiente";
+            else if (txt === "en curso") cls += "estado-en-curso";
+            else if (txt === "completada") cls += "estado-completada";
+            else if (txt === "cancelada") cls += "estado-cancelada";
+            else cls += "estado-pendiente";
+            tdEstado.innerHTML = '<span class="' + cls + '">' + raw + '</span>';
+          });
+        };
+
+        setTimeout(toBadge, 0);
+
+        const obs = new MutationObserver(() => setTimeout(toBadge, 0));
+        obs.observe(tbody, { childList: true });
+      }
+
+      if (modal) {
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) modal.classList.add("hidden");
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+            modal.classList.add("hidden");
+          }
+        });
+      }
+      if (cerrar) {
+        cerrar.addEventListener("click", (e) => {
+          e.preventDefault();
+          document.getElementById("modalEntrega")?.classList.add("hidden");
+        });
+      }
+    });
+  </script>
+</body>
+</html>

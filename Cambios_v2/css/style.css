@@ -1,0 +1,117 @@
+:root{
+  --navy:#0E1B33;
+  --navy-deep:#081226;
+  --amber:#F0A800;
+  --amber-deep:#C97F00;
+  --gold:#B4863A;
+  --paper:#FBF8F1;
+  --ink:#12203A;
+  --muted:#5B6072;
+  --line:rgba(18,32,58,0.12);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+
+body{
+  font-family:'Work Sans', Arial, sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.5;
+}
+
+a{color:inherit; text-decoration:none;}
+img{max-width:100%; display:block;}
+
+.site-header{
+  position:sticky; top:0; z-index:50;
+  background:var(--navy);
+  color:var(--paper);
+  padding:16px 32px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.site-header .logo{font-weight:800; font-size:20px; letter-spacing:0.02em;}
+.site-header .logo span{color:var(--amber);}
+.site-header nav a{margin-left:24px; font-weight:600; font-size:14px;}
+.site-header nav a:hover{color:var(--amber);}
+
+.hero{
+  background:linear-gradient(180deg, rgba(14,27,51,0.85), rgba(14,27,51,0.95)), url('../uploads/servicios/hero-default.jpg') center/cover no-repeat;
+  color:var(--paper);
+  padding:80px 32px;
+  text-align:center;
+}
+.hero h1{font-size:44px; margin-bottom:16px; max-width:800px; margin-left:auto; margin-right:auto;}
+.hero p{font-size:18px; color:#D8DDEB; max-width:600px; margin:0 auto 28px;}
+.hero .cta-buttons{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+
+.btn{
+  display:inline-block; padding:14px 28px; border-radius:4px; font-weight:700;
+  cursor:pointer; border:none; font-size:15px;
+}
+.btn-amber{background:var(--amber); color:var(--navy);}
+.btn-outline{background:transparent; color:var(--paper); border:1.5px solid var(--paper);}
+.btn:hover{opacity:0.9;}
+
+.lineas{
+  padding:60px 32px;
+  max-width:1100px; margin:0 auto;
+}
+.lineas h2{text-align:center; font-size:30px; margin-bottom:36px;}
+.linea-tabs{display:flex; justify-content:center; gap:12px; margin-bottom:32px;}
+.linea-tab{
+  padding:10px 22px; border-radius:30px; border:1.5px solid var(--line);
+  font-weight:700; cursor:pointer; background:white;
+}
+.linea-tab.active{background:var(--navy); color:var(--paper); border-color:var(--navy);}
+
+.servicios-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:24px;
+}
+.servicio-card{
+  background:white; border:1px solid var(--line); border-radius:8px;
+  overflow:hidden; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease;
+}
+.servicio-card:hover{transform:translateY(-4px); box-shadow:0 12px 24px rgba(0,0,0,0.08);}
+.servicio-card .carrusel{position:relative; aspect-ratio:4/3; background:var(--line); overflow:hidden;}
+.servicio-card .carrusel img{
+  position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;
+  opacity:0; transition:opacity .5s ease;
+}
+.servicio-card .carrusel img.activa{opacity:1;}
+.servicio-card .contenido{padding:18px;}
+.servicio-card h3{font-size:17px; margin-bottom:6px;}
+.servicio-card p{font-size:14px; color:var(--muted); margin-bottom:10px;}
+.servicio-card .precio{font-weight:700; color:var(--amber-deep); font-size:14px;}
+
+#chatbot-toggle{
+  position:fixed; bottom:24px; right:24px; z-index:100;
+  width:58px; height:58px; border-radius:50%; background:var(--amber);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 20px rgba(0,0,0,0.25); cursor:pointer; border:none;
+}
+#chatbot-window{
+  position:fixed; bottom:92px; right:24px; z-index:100;
+  width:320px; max-height:440px; background:white; border-radius:10px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.25); display:none; flex-direction:column; overflow:hidden;
+}
+#chatbot-window.abierto{display:flex;}
+#chatbot-window .cabecera{background:var(--navy); color:var(--paper); padding:14px; font-weight:700;}
+#chatbot-window .mensajes{flex:1; padding:14px; overflow-y:auto; font-size:14px;}
+#chatbot-window .mensaje{margin-bottom:12px;}
+#chatbot-window .mensaje.usuario{text-align:right; color:var(--navy); font-weight:600;}
+#chatbot-window .mensaje.bot{color:var(--muted);}
+#chatbot-window form{display:flex; border-top:1px solid var(--line);}
+#chatbot-window input{flex:1; border:none; padding:12px; font-size:14px;}
+#chatbot-window button{background:var(--amber); border:none; padding:0 16px; font-weight:700; cursor:pointer;}
+
+footer{
+  background:var(--navy-deep); color:#8E97AC; padding:32px; text-align:center; font-size:13px;
+}
+footer strong{color:var(--paper);}
+
+@media (max-width: 640px){
+  .hero h1{font-size:30px;}
+  .site-header nav{display:none;}
+}

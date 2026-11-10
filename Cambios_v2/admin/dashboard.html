@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Administrativo</title>
+<link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <aside class="sidebar" style="position:relative;">
+    <div class="brand">Electro<span style="color:#F0A800;">Núcleo</span></div>
+    <nav>
+      <a data-section="estadisticas" class="active">📊 Estadísticas</a>
+      <a data-section="servicios">🛠️ Servicios</a>
+      <a data-section="clientes">👤 Clientes</a>
+    </nav>
+    <div class="logout" id="logout-btn">Cerrar sesión (<span id="nombre-usuario"></span>)</div>
+  </aside>
+
+  <main class="main">
+
+    <section id="section-estadisticas">
+      <h2>Estadísticas</h2>
+      <div class="stats-grid" id="stats-grid"></div>
+
+      <h3 style="margin-bottom:12px;">Últimas preguntas al chatbot</h3>
+      <table>
+        <thead><tr><th>Fecha</th><th>Pregunta</th><th>Respuesta</th></tr></thead>
+        <tbody id="tabla-preguntas"><tr><td colspan="3">Cargando...</td></tr></tbody>
+      </table>
+    </section>
+
+    <section id="section-servicios" style="display:none;">
+      <div class="toolbar">
+        <h2>Servicios</h2>
+        <button class="btn btn-amber" id="btn-nuevo-servicio">+ Nuevo servicio</button>
+      </div>
+      <table>
+        <thead><tr><th>Línea</th><th>Nombre</th><th>Precio desde</th><th>Imágenes</th><th>Estado</th><th>Acciones</th></tr></thead>
+        <tbody id="tabla-servicios"><tr><td colspan="6">Cargando...</td></tr></tbody>
+      </table>
+    </section>
+
+    <section id="section-clientes" style="display:none;">
+      <div class="toolbar">
+        <h2>Clientes</h2>
+        <button class="btn btn-amber" id="btn-nuevo-cliente">+ Nuevo cliente</button>
+      </div>
+      <table>
+        <thead><tr><th>Fecha solicitud</th><th>Cliente</th><th>Servicio</th><th>Localidad</th><th>Estado</th><th>Acciones</th></tr></thead>
+        <tbody id="tabla-clientes"><tr><td colspan="6">Cargando...</td></tr></tbody>
+      </table>
+    </section>
+
+  </main>
+</div>
+
+<div class="modal-overlay" id="modal-servicio">
+  <div class="modal">
+    <h3 id="modal-servicio-titulo">Nuevo servicio</h3>
+    <form id="form-servicio">
+      <input type="hidden" id="servicio-id">
+
+      <label>Línea</label>
+      <select id="servicio-linea" required></select>
+
+      <label>Nombre</label>
+      <input type="text" id="servicio-nombre" required>
+
+      <label>Descripción</label>
+      <textarea id="servicio-descripcion" rows="3"></textarea>
+
+      <label>Precio desde (ARS, opcional)</label>
+      <input type="number" id="servicio-precio" min="0" step="0.01">
+
+      <label>Imágenes del carrusel</label>
+      <input type="file" id="servicio-imagen-input" accept="image/png, image/jpeg, image/webp" multiple>
+      <div class="preview-imagenes" id="servicio-preview"></div>
+
+      <label>Orden (menor = aparece primero)</label>
+      <input type="number" id="servicio-orden" value="0">
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" id="cerrar-modal-servicio">Cancelar</button>
+        <button type="submit" class="btn btn-amber">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-cliente">
+  <div class="modal">
+    <h3 id="modal-cliente-titulo">Nuevo cliente</h3>
+    <form id="form-cliente">
+      <input type="hidden" id="cliente-id">
+
+      <label>Nombre</label>
+      <input type="text" id="cliente-nombre" required>
+
+      <label>Teléfono</label>
+      <input type="text" id="cliente-telefono">
+
+      <label>Email</label>
+      <input type="email" id="cliente-email">
+
+      <label>Domicilio</label>
+      <input type="text" id="cliente-domicilio">
+
+      <label>Localidad</label>
+      <input type="text" id="cliente-localidad">
+
+      <label>Servicio solicitado</label>
+      <select id="cliente-servicio"><option value="">— Sin especificar —</option></select>
+
+      <label>Fecha de solicitud</label>
+      <input type="datetime-local" id="cliente-fecha">
+
+      <label>Estado</label>
+      <select id="cliente-estado">
+        <option value="nuevo">Nuevo</option>
+        <option value="contactado">Contactado</option>
+        <option value="presupuestado">Presupuestado</option>
+        <option value="en_obra">En obra</option>
+        <option value="finalizado">Finalizado</option>
+        <option value="cancelado">Cancelado</option>
+      </select>
+
+      <label>Observaciones</label>
+      <textarea id="cliente-observaciones" rows="3"></textarea>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" id="cerrar-modal-cliente">Cancelar</button>
+        <button type="submit" class="btn btn-amber">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
