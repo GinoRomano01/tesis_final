@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600&display=swap');
+
+:root {
+    --lino:    #f7f0e6;
+    --lino2:   #ede4d4;
+    --lino3:   #e4d8c4;
+    --papel:   #fdfaf6;
+    --caoba:   #5c2d0a;
+    --caoba2:  #7a3e14;
+    --amb:     #b8722a;
+    --dorado:  #c9a84c;
+    --tinta:   #2c1a0e;
+    --tinta2:  #4a3020;
+    --tinta3:  #6b5844;   
+    --g1:      #8a7560;
+    --g2:      #b5a08a;
+    --borde:   #d4c4aa;
+    --borde2:  #e8dcc8;
+    --sombra:  rgba(92, 45, 10, .09);
+    --verde:   #2e6b3a;
+    --verde2:  #2e7d32;
+    --rojo:    #b53030;
+    --rojo2:   #c0392b;
+    --amb-osc: #8a5a12;   
+    --azul:    #1565c0;
+    --naranja: #e65100;
+    --amarillo:#f57f17;
+    --purpura: #6a1b9a;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'Source Sans 3', Georgia, sans-serif;
+    --trans-fast:   .12s ease;
+    --trans-base:   .18s ease;
+    --trans-slow:   .28s ease;
+    --radius-sm:  6px;
+    --radius-md:  9px;
+    --radius-lg:  12px;
+    --radius-xl:  16px;
+    --radius-pill:20px;
+    --shadow-sm:  0 2px 8px var(--sombra);
+    --shadow-md:  0 4px 16px var(--sombra);
+    --shadow-lg:  0 8px 32px rgba(92, 45, 10, .14);
+}
+
+*, *::before, *::after { box-sizing: border-box; }

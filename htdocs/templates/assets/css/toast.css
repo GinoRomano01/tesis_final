@@ -1,0 +1,85 @@
+.sp-toasts {
+    position: fixed;
+    top: 72px;
+    right: 16px;
+    z-index: 2100;             
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    width: min(380px, calc(100vw - 32px));
+    pointer-events: none;     
+}
+
+.sp-toast {
+    pointer-events: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: .7rem;
+    background: var(--papel);
+    color: var(--tinta);
+    border: 1px solid var(--borde);
+    border-left: 4px solid var(--caoba2);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: .8rem .8rem .8rem .9rem;
+    font-family: var(--font-body);
+    font-size: .9rem;
+    line-height: 1.4;
+    animation: spToastEntra .22s ease;
+}
+
+.sp-toast-icono {
+    font-size: 1.05rem;
+    margin-top: .1rem;
+    flex-shrink: 0;
+    color: var(--caoba2);
+}
+
+.sp-toast-msg {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.sp-toast-cerrar {
+    background: none;
+    border: none;
+    color: var(--tinta2);
+    font-size: 1.25rem;
+    line-height: 1;
+    padding: 0 .2rem;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+}
+.sp-toast-cerrar:hover { background: var(--lino2); color: var(--tinta); }
+.sp-toast-cerrar:focus-visible { outline: 2px solid var(--caoba2); outline-offset: 1px; }
+.sp-toast--success { border-left-color: var(--verde); }
+.sp-toast--success .sp-toast-icono { color: var(--verde); }
+.sp-toast--danger { border-left-color: var(--rojo); }
+.sp-toast--danger .sp-toast-icono { color: var(--rojo); }
+.sp-toast--warning { border-left-color: var(--amb); }
+.sp-toast--warning .sp-toast-icono { color: var(--amb); }
+.sp-toast--saliendo {
+    opacity: 0;
+    transform: translateX(16px);
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+@keyframes spToastEntra {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+    .sp-toasts { top: 64px; right: 16px; left: 16px; width: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sp-toast { animation: none; }
+    .sp-toast--saliendo { transition: none; }
+}
+
+@media print {
+    .sp-toasts { display: none !important; }
+}
